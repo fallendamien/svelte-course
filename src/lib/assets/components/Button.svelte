@@ -1,17 +1,29 @@
-<script lang="ts"></script>
+<script lang="ts">
+	import type { Snippet } from 'svelte';
 
-{#snippet bold(x: any)}
-	<b>{x}</b>
-{/snippet}
+	interface Props {
+		left?: Snippet;
+		right?: Snippet;
+		children: Snippet;
+	}
+	let { left, right, children }: Props = $props();
+</script>
 
-{#snippet sum(a: number, b: number)}
-	<span>{a} + {b} = {@render bold(a + b)}</span>
-{/snippet}
+<button>
+	{#if left}
+		<div class="left-content">
+			{@render left()}
+		</div>
+	{/if}
 
-<button>Text</button>
+	{@render children()}
 
-{@render sum(2, 2)}
-{@render bold('Some Text')}
+	{#if right}
+		<div class="right-content">
+			{@render right()}
+		</div>
+	{/if}
+</button>
 
 <style>
 	button {
@@ -23,5 +35,14 @@
 		font-weight: bold;
 		border-radius: 5px;
 		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.left-content {
+		margin-inline-start: 10px;
+	}
+	.right-content {
+		margin-inline-start: 10px;
 	}
 </style>
