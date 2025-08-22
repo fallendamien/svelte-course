@@ -1,22 +1,32 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	let isLeftHovered = $state(false);
 
 	interface Props {
-		left?: Snippet;
+		left?: Snippet<[boolean]>;
 		right?: Snippet;
-		children: Snippet;
+		children: Snippet<[boolean]>;
 	}
 	let { left, right, children }: Props = $props();
 </script>
 
 <button>
 	{#if left}
-		<div class="left-content">
-			{@render left()}
+		<div
+			role="presentation"
+			class="left-content"
+			onmouseenter={() => {
+				isLeftHovered = true;
+			}}
+			onmouseleave={() => {
+				isLeftHovered = false;
+			}}
+		>
+			{@render left(isLeftHovered)}
 		</div>
 	{/if}
 
-	{@render children()}
+	{@render children(isLeftHovered)}
 
 	{#if right}
 		<div class="right-content">
@@ -40,7 +50,7 @@
 		justify-content: center;
 	}
 	.left-content {
-		margin-inline-start: 10px;
+		margin-inline-end: 10px;
 	}
 	.right-content {
 		margin-inline-start: 10px;

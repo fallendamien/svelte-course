@@ -1,14 +1,22 @@
-<script>
+<script lang="ts">
 	import Button from '$lib/assets/components/Button.svelte';
-	import { AlarmClock, Search } from '@lucide/svelte';
+	import { AlarmCheck, AlarmClock, Search } from '@lucide/svelte';
 </script>
 
 <Button>
-	{#snippet left()}
-		<Search />
+	{#snippet left(isHovered: boolean)}
+		{#if isHovered}
+			<Search />
+		{:else}
+			<AlarmCheck />
+		{/if}
 	{/snippet}
-	Text
+
+	{#snippet children(isLeftHovered)}
+		Text {isLeftHovered}
+	{/snippet}
+
 	{#snippet right()}
-		<AlarmClock />
+		<AlarmCheck />
 	{/snippet}
 </Button>
