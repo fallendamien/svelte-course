@@ -12,7 +12,7 @@
 	let { left, right, size = 'sm', shadow = false, children }: Props = $props();
 </script>
 
-<button class:sm={size == 'sm'} class:lg={size == 'lg'} class:shadow>
+<button class={{ ['sm other-classes']: size === 'sm', lg: size === 'lg', shadow }}>
 	{#if left}
 		<div
 			role="presentation"
