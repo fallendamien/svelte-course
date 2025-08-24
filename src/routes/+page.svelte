@@ -12,7 +12,7 @@
 		{/if}
 	{/snippet}
 
-	{#snippet children(isLeftHovered)}
+	{#snippet content(isLeftHovered)}
 		Text {isLeftHovered}
 	{/snippet}
 

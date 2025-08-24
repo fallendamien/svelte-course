@@ -1,18 +1,28 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import type { HTMLButtonAttributes } from 'svelte/elements';
 	let isLeftHovered = $state(false);
 
-	interface Props {
+	type Props = HTMLButtonAttributes & {
 		left?: Snippet<[boolean]>;
 		right?: Snippet;
-		children: Snippet<[boolean]>;
+		content: Snippet<[boolean]>;
 		size?: 'sm' | 'lg';
 		shadow?: boolean;
-	}
-	let { left, right, size = 'sm', shadow = false, children, class: _class }: Props = $props();
+	};
+	let {
+		left,
+		right,
+		size = 'sm',
+		shadow = false,
+		content,
+		class: _class,
+		...props
+	}: Props = $props();
 </script>
 
 <button
+	{...props}
 	class={[size === 'sm' && 'sm', size === 'lg' && 'lg', 'some-class', shadow && 'shadow', _class]}
 >
 	{#if left}
@@ -30,7 +40,7 @@
 		</div>
 	{/if}
 
-	{@render children(isLeftHovered)}
+	{@render content(isLeftHovered)}
 
 	{#if right}
 		<div class="right-content">
