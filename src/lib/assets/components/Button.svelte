@@ -9,6 +9,8 @@
 		content: Snippet<[boolean]>;
 		size?: 'sm' | 'lg';
 		shadow?: boolean;
+		bgColor?: string;
+		textColor?: string;
 	};
 	let {
 		left,
@@ -17,13 +19,17 @@
 		shadow = false,
 		content,
 		class: _class,
+		bgColor,
+		textColor,
 		...props
 	}: Props = $props();
 </script>
 
 <button
-	{...props}
 	class={[size === 'sm' && 'sm', size === 'lg' && 'lg', 'some-class', shadow && 'shadow', _class]}
+	style:--buttonBgColor={bgColor}
+	style:--buttonTextColor={textColor}
+	{...props}
 >
 	{#if left}
 		<div
@@ -52,8 +58,8 @@
 <style lang="scss">
 	button {
 		border: none;
-		background-color: #ff3e00;
-		color: #ffffff;
+		background-color: var(--buttonBgColor, #ff3e00);
+		color: var(--buttonTextColor, #ffffff);
 		padding: 0 20px;
 		height: 45px;
 		font-weight: bold;
